@@ -1,0 +1,6 @@
+---
+# handlers file for frontend
+- name: Restart HAProxy
+  service: 
+    name: haproxy 
+    state: restarted
