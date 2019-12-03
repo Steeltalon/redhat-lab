@@ -1,13 +1,9 @@
 ---
 # Common configuration for all hosts
-- name: Configuring yum repository for all hosts
-  hosts: all
-  gather_facts: false 
-  become: true
-
-  tasks:
-  - name: Enable yum repository
-    template:
-      src: "{{ yum_repos_file }}"
-      dest: "{{ yum_repos_folder }}/{{ yum_repos_file }}"
-      mode: 0644
+- name: Enable yum repository
+  template:
+    src: "{{ yum_repo_file }}"
+    dest: "{{ yum_repo_folder }}/{{ yum_repo_filename }}"
+    mode: 0644
+#  vars:
+#    template_variable: vars/main.yml

@@ -1,30 +1,24 @@
 ---
 # tasks file for tomcat
-- name: Install and Configure tomcat
-  hosts: apps
-  gather_facts: false
-  become: true
+- name: Install tomcat
+  package:
+    name: tomcat
+    state: latest
 
-  tasks:
-  - name: Install tomcat
-    package:
-      name: tomcat
-      state: latest
+- name: Enable tomcat at boot
+  service:
+    name: tomcat
+    enabled: yes
 
-  - name: Enable tomcat at boot
-    service:
-      name: tomcat
-      enabled: yes
+- name: Create ansible tomcat directory 
+  file:
+    path: "{{ tomcat_root }}"
+    state: directory
 
-  - name: Create ansible tomcat directory 
-    file:
-      path: "{{ tomcat_root }}"
-      state: directory
-
-  - name: Copy static html file
-    template:
-      src: files/index.html.j2
-      dest: "{{ tomcat_root }}/index.html"
-      mode: 0644
-      notify: Start tomcat
+- name: Copy static html file
+  template:
+    src: files/index.html.j2
+    dest: "{{ tomcat_root }}/index.html"
+    mode: 0644
+    notify: Start tomcat
 

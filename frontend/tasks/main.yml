@@ -1,28 +1,23 @@
 ---
 # tasks file for frontend
-- name: Deploy HAProxy on Frontend hosts
-  hosts: frontends
-  gather_facts: false 
-  become: true
+- name: Install httpie
+  package:
+    name: httpie
+    state: latest
 
-  tasks:
-  - name: Install httpie
-    package:
-      name: httpie
-      state: latest
+- name: Install HAProxy
+  yum:
+    name: haproxy 
+    state: latest
 
-  - name: Install HAProxy
-    yum:
-      name: haproxy 
-      state: latest
+- name: Enable HAProxy
+  service:
+    name: haproxy
+    state: started
 
-  - name: Enable HAProxy
-    service:
-      name: haproxy
-      state: started
-
-  - name: Configure HAProxy
-    template:
-      src: files/haproxy.cfg.j2
-      dest: "{{ haproxy_config_file }}"
-      notify: Restart HAProxy
+- name: Configure HAProxy
+  template:
+    src: files/haproxy.cfg.j2
+    dest: "{{ haproxy_config_file }}"
+  notify: 
+    - Restart HAProxy

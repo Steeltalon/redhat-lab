@@ -1,4 +1,5 @@
 ---
 # vars file for common
-yum_repo_filename: files/open_three-tier-app.repo
+yum_repo_filename: open_three-tier-app.repo
+yum_repo_file: ../files/open_three-tier-app.repo
 yum_repo_folder: /etc/yum.repos.d
