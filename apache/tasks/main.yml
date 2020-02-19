@@ -9,6 +9,6 @@
   service:
     name: httpd
     enabled: yes
-#    state: started
+    state: started
   notify: 
     - Start Apache
